@@ -18,24 +18,24 @@ lines = []
 temp_components = []
 
 buttonLine1 = canvas.create_rectangle(0, 0, 100, 30, fill="grey40", outline="grey60")
-buttonTXTLine1 = canvas.create_text(50, 15, text="Simple Line")
+buttonTXTLine1 = canvas.create_text(50, 15, text="Direct Line")
 
 buttonLine2 = canvas.create_rectangle(0, 30, 100, 60, fill="grey40", outline="grey60")
-buttonTXTLine2 = canvas.create_text(50, 40, text="Second Line")
+buttonTXTLine2 = canvas.create_text(50, 40, text="DDA Line")
 
 buttonLine3 = canvas.create_rectangle(0, 60, 100, 90, fill="grey40", outline="grey60")
-buttonTXTLine3 = canvas.create_text(50, 80, text="Third Line")
+buttonTXTLine3 = canvas.create_text(50, 80, text="Bresenham\'s Line")
 
 buttonLine4 = canvas.create_rectangle(0, 90, 100, 120, fill="grey40", outline="grey60")
-buttonTXTLine4 = canvas.create_text(50, 100, text="Circle")
+buttonTXTLine4 = canvas.create_text(50, 100, text="Bresenham\'s Circle")
 
 buttonLine5 = canvas.create_rectangle(0, 120, 100, 150, fill="grey40", outline="grey60")
-buttonTXTLine5 = canvas.create_text(50, 130, text="Circle_2")
+buttonTXTLine5 = canvas.create_text(50, 130, text="Midpoint Circle")
 
 
 def clickedLine1(e):
     print("Hello World ")
-    root.title('First One')
+    root.title('Direct Line')
 
     global drawMode
     drawMode = 1
@@ -43,7 +43,7 @@ def clickedLine1(e):
 
 def clickedLine2(e):
     print("Hello World ")
-    root.title('Second One')
+    root.title('DDA Line')
 
     global drawMode
     drawMode = 2
@@ -51,7 +51,7 @@ def clickedLine2(e):
 
 def clickedLine3(e):
     print("Hello World ")
-    root.title('Third One')
+    root.title("Bresenham\'s Line")
 
     global drawMode
     drawMode = 3
@@ -59,7 +59,7 @@ def clickedLine3(e):
 
 def clickedLine4(e):
     print("Hello World ")
-    root.title('Fourth One')
+    root.title('Bresenham\'s Circle')
 
     global drawMode
     drawMode = 4
@@ -67,7 +67,7 @@ def clickedLine4(e):
 
 def clickedLine5(e):
     print("Hello World ")
-    root.title('Fifth One')
+    root.title('Midpoint Cirle')
 
     global drawMode
     drawMode = 5
@@ -120,25 +120,29 @@ def draw():
     points = []
 
     if drawMode == 1:
-        coordsList = first_algo(x1, y1, x2, y2)
+        coordsList = direct_line(x1, y1, x2, y2)
 
     elif drawMode == 2:
-        coordsList = second_algo(x1, y1, x2, y2)
+        coordsList = dda_algo(x1, y1, x2, y2)
 
     elif drawMode == 3:
-        coordsList = third_algo(x1, y1, x2, y2)
+        coordsList = bresenham_line(x1, y1, x2, y2)
 
     elif drawMode == 4:
-        coordsList = circle(x1, y1, x2, y2)
+        coordsList = bresenham_circle(x1, y1, x2, y2)
 
     elif drawMode == 5:
-        coordsList = circle_2(x1, y1, x2, y2)
+        coordsList = midpoint_circle(x1, y1, x2, y2)
 
         # coordsList = third_algo(m, c, x1, y1, x2, y2)
         # print(coordsList)
 
     xVector = coordsList[0]
     yVector = coordsList[1]
+
+    print(xVector)
+    print()
+    print(yVector)
 
     if (drawMode < 4):
 

@@ -1,5 +1,5 @@
 import math
-def first_algo(x1, y1, x2, y2):
+def direct_line(x1, y1, x2, y2):
 
     m = (y2 - y1) / (x2 - x1)
     c = y2 - m * x2
@@ -39,7 +39,7 @@ def first_algo(x1, y1, x2, y2):
 
 
     return [xVector, yVector]
-def second_algo(x1, y1, x2, y2):
+def dda_algo(x1, y1, x2, y2):
 
     m = (y2 - y1) / (x2 - x1)
     c = y2 - m * x2
@@ -77,9 +77,7 @@ def second_algo(x1, y1, x2, y2):
             i = i+1
 
     else:
-        print(y2-y1)
-        print(m)
-        print(incForx)
+
 
         for yi in range(y1, y2):
 
@@ -95,17 +93,9 @@ def second_algo(x1, y1, x2, y2):
         xVector[i] = round(xVector[i])
         yVector[i] = round(yVector[i])
         i = i+1
-    '''
-    print("-------------")
-    print(xVector)
-    print(m)
-    print(yVector)
-    print("-------------")'''
-
-    #print(str(len(xVector))+" and "+str(len(yVector)))
 
     return [xVector, yVector]
-def third_algo(x1, y1, x2, y2):
+def bresenham_line(x1, y1, x2, y2):
 
     m = (y2 - y1) / (x2 - x1)
 
@@ -120,7 +110,6 @@ def third_algo(x1, y1, x2, y2):
             tempVar = y1
             y1 = y2
             y2 = tempVar
-        print(m)
         xVector = []
         yVector = []
 
@@ -243,7 +232,7 @@ def third_algo(x1, y1, x2, y2):
                 yVector.append(y)
 
     return [xVector, yVector]
-def circle(x1, y1, x2, y2):
+def bresenham_circle(x1, y1, x2, y2):
     # init vars
     r = int(math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2)))
     d = 3 - (2 * r)
@@ -300,7 +289,7 @@ def circle(x1, y1, x2, y2):
     return [xVector, yVector]
 
 
-def circle_2(x1, y1, x2, y2):
+def midpoint_circle(x1, y1, x2, y2):
     # init vars
     r = int(math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2)))
     p = 1-r
