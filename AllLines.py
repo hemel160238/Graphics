@@ -13,7 +13,6 @@ def first_algo(x1, y1, x2, y2):
         y1 = y2
         y2 = tempVar
 
-
     xVector = []
     yVector = []
 
@@ -108,37 +107,138 @@ def second_algo(x1, y1, x2, y2):
 def third_algo(x1, y1, x2, y2):
 
     m = (y2 - y1) / (x2 - x1)
-    
 
-    print(m)
-    xVector = []
-    yVector = []
 
-    x = x1
-    y = y1
+    if( m > 0):
 
-    dx = x2 - x1
-    dy = y2 - y1
-    dT = 2*(dy - dx)
-    dS = 2*dy
+        if(x1 > x2):
+            tempVar = x1
+            x1 = x2
+            x2 = tempVar
 
-    d = 2*dy - dx
+            tempVar = y1
+            y1 = y2
+            y2 = tempVar
+        print(m)
+        xVector = []
+        yVector = []
 
-    xVector.append(x)
-    yVector.append(y)
+        x = x1
+        y = y1
 
-    while x < x2:
-        x = x+1
+        dx = x2 - x1
+        dy = y2 - y1
 
-        if(d < 0):
-            d = d+dS
+        if (abs(m) < 1):
+
+            dT = 2 * (dy - dx)
+            dS = 2 * dy
+
+            d = 2 * dy - dx
+
+            xVector.append(x)
+            yVector.append(y)
+
+            while x < x2:
+                x = x + 1
+
+                if (d < 0):
+                    d = d + dS
+
+                else:
+                    y = y + 1
+                    d = d + dT
+
+                xVector.append(x)
+                yVector.append(y)
 
         else:
-            y = y+1
-            d = d+dT
 
-        xVector.append(x)
-        yVector.append(y)
+            dT = 2 * (dx - dy)
+            dS = 2 * dx
+
+            d = 2 * dy - dx
+
+            xVector.append(x)
+            yVector.append(y)
+
+            while y < y2:
+                y = y + 1
+
+                if (d < 0):
+                    d = d + dS
+
+                else:
+                    x = x + 1
+                    d = d + dT
+
+                xVector.append(x)
+                yVector.append(y)
+
+        return [xVector, yVector]
+    elif (m < 0):
+
+        if(y1 < y2):
+            tempVar = x1
+            x1 = x2
+            x2 = tempVar
+
+            tempVar = y1
+            y1 = y2
+            y2 = tempVar
+        xVector = []
+        yVector = []
+
+        x = x1
+        y = y1
+
+        dx = x2 - x1
+        dy = y2 - y1
+
+        if (abs(m) < 1):
+
+            dT = 2 * (dy + dx)
+            dS = 2 * dy
+
+            d = 2 * dy - dx
+
+            xVector.append(x)
+            yVector.append(y)
+
+            while x < x2:
+                x = x + 1
+
+                if (d < 0):
+                    d = d - dS
+
+                else:
+                    y = y - 1
+                    d = d - dT
+
+                xVector.append(x)
+                yVector.append(y)
+
+        else:
+
+            dT = 2 * (dx + dy)
+            dS = 2 * dx
+
+            d = (2 * dy) - dx
+
+            xVector.append(x)
+            yVector.append(y)
+
+            while y > y2:
+                y = y - 1
+
+                if (d < 0):
+                    d = d + dS
+
+                else:
+                    x = x + 1
+                    d = d + dT
+
+                xVector.append(x)
+                yVector.append(y)
 
     return [xVector, yVector]
-
