@@ -29,6 +29,9 @@ buttonTXTLine3 = canvas.create_text(50, 80, text="Third Line")
 buttonLine4 = canvas.create_rectangle(0, 90, 100, 120, fill="grey40", outline="grey60")
 buttonTXTLine4 = canvas.create_text(50, 100, text="Circle")
 
+buttonLine5 = canvas.create_rectangle(0, 120, 100, 150, fill="grey40", outline="grey60")
+buttonTXTLine5 = canvas.create_text(50, 130, text="Circle_2")
+
 
 def clickedLine1(e):
     print("Hello World ")
@@ -60,6 +63,14 @@ def clickedLine4(e):
 
     global drawMode
     drawMode = 4
+
+
+def clickedLine5(e):
+    print("Hello World ")
+    root.title('Fifth One')
+
+    global drawMode
+    drawMode = 5
 
 
 def click(e):
@@ -120,6 +131,9 @@ def draw():
     elif drawMode == 4:
         coordsList = circle(x1, y1, x2, y2)
 
+    elif drawMode == 5:
+        coordsList = circle_2(x1, y1, x2, y2)
+
         # coordsList = third_algo(m, c, x1, y1, x2, y2)
         # print(coordsList)
 
@@ -162,5 +176,8 @@ canvas.tag_bind(buttonTXTLine3, "<Button-1>", clickedLine3)
 
 canvas.tag_bind(buttonLine4, "<Button-1>", clickedLine4)
 canvas.tag_bind(buttonTXTLine4, "<Button-1>", clickedLine4)
+
+canvas.tag_bind(buttonLine5, "<Button-1>", clickedLine5)
+canvas.tag_bind(buttonTXTLine5, "<Button-1>", clickedLine5)
 
 root.mainloop()
