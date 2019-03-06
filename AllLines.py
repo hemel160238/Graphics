@@ -1,3 +1,4 @@
+import math
 def first_algo(x1, y1, x2, y2):
 
     m = (y2 - y1) / (x2 - x1)
@@ -241,4 +242,59 @@ def third_algo(x1, y1, x2, y2):
                 xVector.append(x)
                 yVector.append(y)
 
+    return [xVector, yVector]
+def circle(x1, y1, x2, y2):
+    # init vars
+    r = int(math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2)))
+    d = 3 - (2 * r)
+
+    xVector = []
+    yVector = []
+
+
+    x = 0
+    y = r
+
+
+
+    while x <= y:
+
+
+
+        xVector.append(x)
+        yVector.append(-y)
+
+        xVector.append(y)
+        yVector.append(-x)
+
+        # second quarter 3rd octant
+        xVector.append(y)
+        yVector.append(x)
+
+        # second quarter 4.octant
+        xVector.append(x)
+        yVector.append(y)
+
+        # third quarter 5.octant
+        xVector.append(-x)
+        yVector.append(y)
+
+        # third quarter 6.octant
+        xVector.append(-y)
+        yVector.append(x)
+
+        # fourth quarter 7.octant
+        xVector.append(-y)
+        yVector.append(-x)
+
+        # fourth quarter 8.octant
+        xVector.append(-x)
+        yVector.append(-y)
+
+        if d < 0:
+            d = d + (4 * x) + 6
+        else:
+            d = d + (4 * (x - y)) + 10
+            y = y - 1
+        x = x + 1
     return [xVector, yVector]

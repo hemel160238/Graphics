@@ -1,15 +1,15 @@
 import tkinter as tk
 from AllLines import *
+import PIL.Image, PIL.ImageDraw
+
 import time
 
 root = tk.Tk()
 
-
 canvas = tk.Canvas(root, bg="white", width=600, height=400)
 canvas.pack()
 
-
-#mode var
+# mode var
 
 drawMode = 1
 coords = {"x": 0, "y": 0, "x2": 0, "y2": 0}
@@ -26,6 +26,10 @@ buttonTXTLine2 = canvas.create_text(50, 40, text="Second Line")
 buttonLine3 = canvas.create_rectangle(0, 60, 100, 90, fill="grey40", outline="grey60")
 buttonTXTLine3 = canvas.create_text(50, 80, text="Third Line")
 
+buttonLine4 = canvas.create_rectangle(0, 90, 100, 120, fill="grey40", outline="grey60")
+buttonTXTLine4 = canvas.create_text(50, 100, text="Circle")
+
+
 def clickedLine1(e):
     print("Hello World ")
     root.title('First One')
@@ -33,12 +37,14 @@ def clickedLine1(e):
     global drawMode
     drawMode = 1
 
+
 def clickedLine2(e):
     print("Hello World ")
     root.title('Second One')
 
     global drawMode
     drawMode = 2
+
 
 def clickedLine3(e):
     print("Hello World ")
@@ -48,13 +54,21 @@ def clickedLine3(e):
     drawMode = 3
 
 
+def clickedLine4(e):
+    print("Hello World ")
+    root.title('Fourth One')
+
+    global drawMode
+    drawMode = 4
+
+
 def click(e):
     # define start point for line
     coords["x"] = e.x
     coords["y"] = e.y
 
     # create a line on this point and store it in the list
-    #lines.append(canvas.create_line(coords["x"], coords["y"], coords["x"], coords["y"]))
+    # lines.append(canvas.create_line(coords["x"], coords["y"], coords["x"], coords["y"]))
 
 
 def drag(e):
@@ -68,8 +82,7 @@ def drag(e):
 
 
 def draw():
-
-    #CLear Elements in Temp_Components, clearing all excepting Buttons
+    # CLear Elements in Temp_Components, clearing all excepting Buttons
     for elements in temp_components:
         canvas.delete(elements)
 
@@ -77,12 +90,10 @@ def draw():
     y_axis = canvas.create_line(coords['x'], 0, coords['x'], 400, fill="green")
     x_axis = canvas.create_line(0, coords['y'], 600, coords['y'], fill="green")
 
-    pointer_oval = canvas.create_oval(coords['x2'], coords['y2'], coords['x2'], coords['y2'], fill = 'green', width = '4')
+    pointer_oval = canvas.create_oval(coords['x2'], coords['y2'], coords['x2'], coords['y2'], fill='green', width='4')
 
-    #Adding Axises and pointing oval to temp_list as they should be cleared
+    # Adding Axises and pointing oval to temp_list as they should be cleared
     temp_components.extend([y_axis, x_axis, pointer_oval])
-
-
 
     x1 = coords['x']
     x2 = coords['x2']
@@ -95,8 +106,9 @@ def draw():
 
     xVector = []
     yVector = []
+    points = []
 
-    if drawMode ==1:
+    if drawMode == 1:
         coordsList = first_algo(x1, y1, x2, y2)
 
     elif drawMode == 2:
@@ -105,42 +117,40 @@ def draw():
     elif drawMode == 3:
         coordsList = third_algo(x1, y1, x2, y2)
 
-   # coordsList = third_algo(m, c, x1, y1, x2, y2)
-   #print(coordsList)
+    elif drawMode == 4:
+        coordsList = circle(x1, y1, x2, y2)
 
-    if abs(m) < 1:
-
-        for xi in range(x1, x2):
-            yi = m * xi + c
-            rounded_y = int(yi + 0.5)
-
-            xVector.append(xi)
-            yVector.append(rounded_y)
-
-    else:
-
-        for yi in range(y1, y2):
-            xi = (yi - c) / m
+        # coordsList = third_algo(m, c, x1, y1, x2, y2)
+        # print(coordsList)
 
     xVector = coordsList[0]
     yVector = coordsList[1]
 
-    for i in range(0, len(xVector) - 1):
+    if (drawMode < 4):
 
-        if (i % 2 == 0):
+        for i in range(0, len(xVector) - 1):
 
-            #adding Lines to temp component
-            temp_components.append(canvas.create_line(xVector[i], yVector[i], xVector[i + 1], yVector[i + 1], fill="red"))
-        else:
-            temp_components.append(canvas.create_line(xVector[i], yVector[i], xVector[i + 1], yVector[i + 1], fill="blue"))
-            
-            
+            if (i % 2 == 0):
+
+                # adding Lines to temp component
+                temp_components.append(
+                    canvas.create_line(xVector[i], yVector[i], xVector[i + 1], yVector[i + 1], fill="red"))
+            else:
+                temp_components.append(
+                    canvas.create_line(xVector[i], yVector[i], xVector[i + 1], yVector[i + 1], fill="blue"))
+    else:
+
+        for i in range(0, len(xVector) - 1):
+            xVector[i] += x2
+            yVector[i] += y2
+            temp_components.append(
+                canvas.create_oval(xVector[i], yVector[i], xVector[i], yVector[i], fill="red", width="3"))
 
 
 canvas.bind("<ButtonPress-1>", click)
 canvas.bind("<B1-Motion>", drag)
 
-#adding Button Click Event
+# adding Button Click Event
 canvas.tag_bind(buttonLine1, "<Button-1>", clickedLine1)
 canvas.tag_bind(buttonTXTLine1, "<Button-1>", clickedLine1)
 
@@ -149,5 +159,8 @@ canvas.tag_bind(buttonTXTLine2, "<Button-1>", clickedLine2)
 
 canvas.tag_bind(buttonLine3, "<Button-1>", clickedLine3)
 canvas.tag_bind(buttonTXTLine3, "<Button-1>", clickedLine3)
+
+canvas.tag_bind(buttonLine4, "<Button-1>", clickedLine4)
+canvas.tag_bind(buttonTXTLine4, "<Button-1>", clickedLine4)
 
 root.mainloop()
