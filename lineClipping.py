@@ -10,7 +10,7 @@ coords = {"x":0,"y":0,"x2":0,"y2":0}
 lines = []
 rectangle = None
 
-# Defining region codes
+#region codes
 INSIDE = 0 #0000
 LEFT = 1 #0001
 RIGHT = 2 #0010
@@ -98,33 +98,32 @@ def cohenSutherlsnd(line, rectangle):
             else:
                 code_out = code2
 
-                # Find intersection point
-                # using formulas y = y1 + slope * (x - x1),
-                # x = x1 + (1 / slope) * (y - y1)
+                # intersecting points
+
             if code_out & TOP:
-                x = x1 + (x2 - x1) * \
-                         (y_max - y1) / (y2 - y1)
+                x = x1 + (x2 - x1) * ((y_max - y1) / (y2 - y1))
+
                 y = y_max
 
             elif code_out & BOTTOM:
 
-                # point is below the clip rectangle
-                x = x1 + (x2 - x1) * \
-                         (y_min - y1) / (y2 - y1)
+                # point is below
+                x = x1 + (x2 - x1) * ((y_min - y1) / (y2 - y1))
+
                 y = y_min
 
             elif code_out & RIGHT:
 
-                # point is to the right of the clip rectangle
-                y = y1 + (y2 - y1) * \
-                         (x_max - x1) / (x2 - x1)
+                # point  right
+                y = y1 + (y2 - y1) * ((x_max - x1) / (x2 - x1))
+
                 x = x_max
 
             elif code_out & LEFT:
 
-                # point is to the left of the clip rectangle
-                y = y1 + (y2 - y1) * \
-                         (x_min - x1) / (x2 - x1)
+                # point is left
+                y = y1 + (y2 - y1) *((x_min - x1) / (x2 - x1))
+
                 x = x_min
 
             if code_out == code1:
